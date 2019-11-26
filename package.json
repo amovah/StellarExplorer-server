@@ -24,5 +24,10 @@
   "description": "Stellar Explorer back-end",
   "repository": "git@github.com:amovah/StellarExplorer-server.git",
   "author": "Ali Movahedi <ali_movahedi@aol.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.12",
+    "unirest": "^0.6.0"
+  }
 }
