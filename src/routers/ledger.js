@@ -28,7 +28,10 @@ router.get('/ledger', async (req, res) => {
     await Promise.all(actions);
 
     res.json(result);
+    return;
   }
+
+  res.json(ledgers);
 });
 
 export default router;
