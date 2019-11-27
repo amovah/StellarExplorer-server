@@ -13,6 +13,10 @@ const schema = new Schema({
     type: Number,
     requried: true,
   },
+  ts: {
+    type: Number,
+    required: true,
+  },
 });
 
 export default mongoose.model('ledger', schema);
