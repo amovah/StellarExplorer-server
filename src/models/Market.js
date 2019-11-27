@@ -17,7 +17,9 @@ const schema = new Schema({
     type: Number,
     required: true,
   },
+}, {
+  timestamps: true,
 });
 
 
-export default mongoose.model('price', schema);
+export default mongoose.model('market', schema);

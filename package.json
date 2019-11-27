@@ -26,6 +26,7 @@
   "author": "Ali Movahedi <ali_movahedi@aol.com>",
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.12",
     "unirest": "^0.6.0"
