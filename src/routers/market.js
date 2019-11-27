@@ -29,14 +29,7 @@ router.get('/market', async (req, res) => {
     await newMarket.save();
 
     res.json(newMarket);
-  } else if (market && new Date(market.updatedAt).getTime() + 5 * 60 * 1000 < Date.now()) {
-    const newData = mapSourceToModel(await retrieveMarket());
-
-    for (const [key, value] of Object.entries(newData)) {
-      market[key] = value;
-    }
-
-    await market.save();
+    return;
   }
 
   res.json(market);

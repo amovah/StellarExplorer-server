@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import express from 'express';
 import mongoose from 'mongoose';
 import routers from './routers';
+import updateMarketWorker from './updateMarket';
 
 mongoose.connect(
   `${process.env.DB_URL || `mongodb://localhost/${process.env.DB_NAME}`}`,
@@ -22,6 +23,8 @@ mongoose.connection.on('disconnected', () => {
 
   process.exit(0);
 });
+
+updateMarketWorker();
 
 const app = express();
 
