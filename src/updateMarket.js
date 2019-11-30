@@ -19,6 +19,12 @@ export default () => {
       const newData = mapSourceToModel(res.body[0]);
       const market = await Market.findOne();
 
+      if (!market) {
+        const newMarket = new Market(mapSourceToModel(res.body[0]));
+        await newMarket.save();
+        return;
+      }
+
       for (const [key, value] of Object.entries(newData)) {
         market[key] = value;
       }
