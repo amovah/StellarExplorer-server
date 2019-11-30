@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import express from 'express';
 import mongoose from 'mongoose';
 import routers from './routers';
-import marketUpdater from './marketUpdater';
+import { updater as marketUpdater } from './marketUpdater';
 
 mongoose.connect(
   `${process.env.DB_URL || `mongodb://localhost/${process.env.DB_NAME}`}`,

@@ -1,7 +1,7 @@
 import unirest from 'unirest';
 import Market from 'Root/models/Market';
 
-function mapSourceToModel(source) {
+export function mapSourceToModel(source) {
   return {
     price_usd: source.price_usd,
     volume_usd_24h: source['24h_volume_usd'],
@@ -10,7 +10,14 @@ function mapSourceToModel(source) {
   };
 }
 
-export default () => {
+export async function getMarket() {
+  const res = await unirest
+    .get('https://api.coinmarketcap.com/v1/ticker/stellar/?convert=USD');
+
+  return res.body[0];
+}
+
+export function updater() {
   setInterval(async () => {
     try {
       const res = await unirest
@@ -34,4 +41,4 @@ export default () => {
       console.log(e);
     }
   }, 5 * 60 * 1000);
-};
+}
