@@ -11,7 +11,7 @@ const schema = new Schema({
     required: true,
   },
 }, {
-  timestamp: true,
+  timestamps: true,
 });
 
 export default mongoose.model('icon', schema);
