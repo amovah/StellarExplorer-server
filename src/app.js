@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import routers from './routers';
 import { updater as marketUpdater } from './marketUpdater';
+import { updater as ledgerUpdater } from './ledgerUpdater';
 
 mongoose.connect(
   `${process.env.DB_URL || `mongodb://localhost/${process.env.DB_NAME}`}`,
@@ -25,6 +26,7 @@ mongoose.connection.on('disconnected', () => {
 });
 
 marketUpdater();
+ledgerUpdater();
 
 const app = express();
 
