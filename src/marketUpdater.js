@@ -17,28 +17,34 @@ export async function getMarket() {
   return res.body[0];
 }
 
-export function updater() {
-  setInterval(async () => {
-    try {
-      const res = await unirest
-        .get('https://api.coinmarketcap.com/v1/ticker/stellar/?convert=USD');
+export async function updateDB() {
+  try {
+    const res = await getMarket();
 
-      const newData = mapSourceToModel(res.body[0]);
-      const market = await Market.findOne();
+    const newData = mapSourceToModel(res);
+    const market = await Market.findOne();
 
-      if (!market) {
-        const newMarket = new Market(mapSourceToModel(res.body[0]));
-        await newMarket.save();
-        return;
-      }
-
-      for (const [key, value] of Object.entries(newData)) {
-        market[key] = value;
-      }
-
-      await market.save();
-    } catch (e) {
-      console.log(e);
+    if (!market) {
+      const newMarket = new Market(mapSourceToModel(res));
+      await newMarket.save();
+      return;
     }
-  }, 5 * 60 * 1000);
+
+    for (const [key, value] of Object.entries(newData)) {
+      market[key] = value;
+    }
+
+    await market.save();
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function updater() {
+  const market = await Market.findOne();
+  if (!market) {
+    await updateDB();
+  }
+
+  setInterval(updateDB, 5 * 60 * 1000);
 }
