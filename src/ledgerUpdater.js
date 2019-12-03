@@ -15,24 +15,13 @@ export async function updateDB() {
   const incomingLedgers = await getLedger();
   const actions = [];
 
-  if (!ledgers.length) {
-    for (const item of incomingLedgers) {
-      const newLedger = new Ledger(item);
-      actions.push(newLedger.save());
-    }
-
-    await Promise.all(actions);
-
-    return;
+  if (ledgers.length) {
+    await Ledger.remove({});
   }
 
-  for (let i = 0; i < 5; i = i + 1) {
-    if (ledgers[i].ts * 1000 + ((5 - i) * gap) < Date.now()) {
-      actions.push(Ledger.deleteOne({ id: ledgers[i].id }));
-
-      const newLedger = new Ledger(incomingLedgers[i]);
-      actions.push(newLedger.save());
-    }
+  for (const item of incomingLedgers) {
+    const newLedger = new Ledger(item);
+    actions.push(newLedger.save());
   }
 
   await Promise.all(actions);
