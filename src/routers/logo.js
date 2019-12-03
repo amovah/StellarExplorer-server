@@ -25,7 +25,7 @@ async function getIconURL(asset) {
   }
 }
 
-router.get('/icon/:assetid', async (req, res) => {
+router.get('/logo/:assetid', async (req, res) => {
   const icon = await Logo.findOne({
     assetid: req.params.assetid,
   });
