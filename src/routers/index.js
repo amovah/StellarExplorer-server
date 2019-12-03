@@ -1,9 +1,9 @@
 import market from './market';
 import ledger from './ledger';
-import icon from './icon';
+import logo from './logo';
 
 export default [
   market,
   ledger,
-  icon,
+  logo,
 ];

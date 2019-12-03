@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import unirest from 'unirest';
-import Icon from 'Root/models/Icon';
+import Logo from 'Root/models/Logo';
 import toml from 'toml';
 
 const router = new Router();
@@ -26,7 +26,7 @@ async function getIconURL(asset) {
 }
 
 router.get('/icon/:assetid', async (req, res) => {
-  const icon = await Icon.findOne({
+  const icon = await Logo.findOne({
     assetid: req.params.assetid,
   });
 
@@ -50,7 +50,7 @@ router.get('/icon/:assetid', async (req, res) => {
       });
     }
 
-    const newIcon = new Icon({
+    const newIcon = new Logo({
       assetid: req.params.assetid,
       url: iconURL,
     });
