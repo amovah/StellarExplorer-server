@@ -1,11 +1,11 @@
 import unirest from 'unirest';
 import Ledger from 'Root/models/Ledger';
+import { api } from './baseURL';
 
 const gap = 86400000;
 
 export async function getLedger() {
-  const res = await unirest
-    .get('https://api.stellar.expert/explorer/public/ledger/ledger-stats');
+  const res = await unirest.get(`${api}/ledger/ledger-stats`);
 
   return res.body.slice(-5);
 }
