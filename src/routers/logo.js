@@ -59,6 +59,35 @@ router.get('/logo/:assetid', async (req, res) => {
     return;
   }
 
+  if ((new Date(icon.updatedAt)).getTime() + 604800000 < Date.now()) {
+    const iconURL = await getIconURL(req.params.assetid);
+
+    if (iconURL === 404) {
+      res.status(404);
+      res.json({
+        status: 404,
+        error: 'asset not found',
+      });
+      return;
+    }
+
+    if (iconURL === 500) {
+      res.status(500);
+      res.json({
+        status: 500,
+        error: 'Internal Error, try again later!',
+      });
+    }
+
+    const newIcon = new Logo({
+      assetid: req.params.assetid,
+      url: iconURL,
+    });
+    newIcon.save();
+    res.json(newIcon);
+    return;
+  }
+
   res.json(icon);
 });
 
